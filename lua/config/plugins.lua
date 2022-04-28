@@ -26,6 +26,9 @@ return {
       require("plugins.alpha")
     end,
   },
+    {'kenn7/vim-arsync'},
+    {'sbdchd/neoformat'},
+    {'prettier/vim-prettier'},
 
   -- ╭─────────────────────────────────────────────────────────╮
   -- │ Treesitter                                              │

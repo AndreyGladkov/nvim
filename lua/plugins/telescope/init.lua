@@ -32,20 +32,25 @@ require('telescope').setup {
       '--smart-case'
     },
     layout_config     = {
-      horizontal = {
-        preview_cutoff = 120,
-      },
+     -- horizontal = {
+     --   preview_cutoff = 120,
+     -- },
+      vertical = { width = 0.5 },
       prompt_position = "top",
     },
     file_sorter       = require('telescope.sorters').get_fzy_sorter,
     prompt_prefix     = '  ',
     color_devicons    = true,
-    git_icons         = git_icons,
-    sorting_strategy  = "ascending",
-    file_previewer    = require('telescope.previewers').vim_buffer_cat.new,
-    grep_previewer    = require('telescope.previewers').vim_buffer_vimgrep.new,
-    qflist_previewer  = require('telescope.previewers').vim_buffer_qflist.new,
-    mappings          = {
+    git_icons = git_icons,
+
+    sorting_strategy = "ascending",
+    file_ignore_patterns = { ".yarn/*", ".git/*", ".github/*", "xhh/lux/*", ".pnp.js", ".yarn.lock", "webapp-static/js/CustomLibs/*"},
+
+    file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
+    grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
+    qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
+
+    mappings = {
       i = {
         ["<C-x>"] = false,
         ["<C-j>"] = actions.move_selection_next,
@@ -122,9 +127,9 @@ M.edit_neovim = function()
       sorting_strategy = "ascending",
       winblend         = 4,
       layout_config    = {
-        horizontal = {
-          mirror = false,
-        },
+--        horizontal = {
+--          mirror = false,
+--        },
         vertical = {
           mirror = false,
         },

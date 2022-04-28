@@ -43,6 +43,8 @@ return function(opts)
           "!*{.test.tsx,.test.ts,.test.js,-test.tsx,-test.ts,-test.js}"
         },
         ["xml"] = "*.xml",
+        ["xsl"] = "*.xsl",
+        ["py"] = "*.py",
       }
   opts.pattern = opts.pattern or "%s"
 
@@ -55,6 +57,11 @@ return function(opts)
       local prompt_split = vim.split(prompt, "  ")
 
       local args = { "rg" }
+
+      if not prompt_split[2] then
+          return nil
+      end
+
       if prompt_split[1] then
         table.insert(args, "-e")
         table.insert(args, prompt_split[1])

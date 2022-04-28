@@ -1,7 +1,9 @@
 local keymap = vim.keymap.set
 local silent = { silent = true }
 
-table.unpack = table.unpack or unpack -- 5.1 compatibility
+
+keymap('i', 'jj', '<Esc>', {noremap = true})
+keymap('v', 'S-Y', '"+y', {})
 
 -- Fix moving forward in jumplist via <C-i>
 keymap("n", "<C-I>", "<C-I>", silent)
@@ -30,10 +32,13 @@ keymap("v", "<A-`>", "U", silent)
 -- Save file by CTRL-S
 keymap("n", "<C-s>", ":w<CR>", silent)
 keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
+-- Make word uppercase
+-- keymap("n", "<C-u>", "viwU<ESC>", { noremap = true })
+-- keymap("i", "<C-u>", "<ESC>viwUi", { noremap = true })
 
 -- Telescope
-keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files()<CR>")
-keymap("n", "<S-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')()<CR>")
+keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files({layout_strategy='vertical',layout_config={width=0.9}})<CR>")
+keymap("n", "<S-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')({layout_strategy='vertical',layout_config={width=0.9}})<CR>")
 
 -- Remove highlights
 keymap("n", "<CR>", ":noh<CR><CR>", silent)
@@ -107,6 +112,7 @@ end, silent)
 keymap("n", "<leader>cl", "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", silent)
 keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", silent)
 keymap("n", "L", "<cmd>lua vim.lsp.buf.signature_help()<CR>", silent)
+
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", silent)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded', max_width = 100 }})<CR>", silent)
 keymap("n", "K", function()
@@ -115,3 +121,4 @@ keymap("n", "K", function()
 		vim.lsp.buf.hover()
 	end
 end)
+

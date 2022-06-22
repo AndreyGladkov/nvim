@@ -1,3 +1,8 @@
+require('ts_context_commentstring').setup({
+    enable = true,
+    enable_autocmd = false,
+})
+
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "tsx",

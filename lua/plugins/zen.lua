@@ -64,3 +64,4 @@ require("zen-mode").setup({
     require("gitsigns.actions").refresh()
   end,
 })
+

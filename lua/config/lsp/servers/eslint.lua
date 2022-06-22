@@ -21,12 +21,13 @@ M.settings = {
   },
   codeActionOnSave = {
     enable = false,
-    mode = "all"
+    mode = "all",
   },
   format = true,
+  fixAll = true,
   nodePath = "",
   onIgnoredFiles = "off",
-  packageManager = "npm",
+  packageManager = "yarn",
   quiet = false,
   rulesCustomizations = {},
   run = "onType",

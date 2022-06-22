@@ -15,7 +15,7 @@ keymap("n", "<C-k>", "<C-w>k", silent)
 keymap("n", "<C-l>", "<C-w>l", silent)
 
 -- H to move to the first non-blank character of the line
-keymap("n", "H", "^", silent)
+--keymap("n", "H", "^", silent)
 
 -- Move selected line / block of text in visual mode
 keymap("x", "K", ":move '<-2<CR>gv-gv", silent)
@@ -35,10 +35,15 @@ keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
 -- Make word uppercase
 -- keymap("n", "<C-u>", "viwU<ESC>", { noremap = true })
 -- keymap("i", "<C-u>", "<ESC>viwUi", { noremap = true })
+keymap("n", "<Leader>ht", "<CMD>lua require('harpoon.ui').toggle_quick_menu()<CR>")
+keymap("n", "<Leader>hj", "<CMD>lua require('harpoon.ui').nav_next()<CR>")
+keymap("n", "<Leader>hh", "<CMD>lua require('harpoon.ui').nav_prev()<CR>")
+keymap("n", "<Leader>ha", "<CMD>lua require('harpoon.mark').add_file()<CR>")
 
 -- Telescope
-keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files({layout_strategy='vertical',layout_config={width=0.9}})<CR>")
-keymap("n", "<S-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')({layout_strategy='vertical',layout_config={width=0.9}})<CR>")
+keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')({type='project_files'})<CR>")
+keymap("n", "<S-p>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')({type='live_grep'})<CR>")
+keymap("n", "<C-;>", "<CMD>lua require('plugins.telescope.pickers.multi-rg')({type='buffers'})<CR>")
 
 -- Remove highlights
 keymap("n", "<CR>", ":noh<CR><CR>", silent)
@@ -54,6 +59,7 @@ keymap("n", "gn", ":bn<CR>", silent)
 keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", silent)
 keymap("n", "gp", ":bp<CR>", silent)
 keymap("n", "<S-q>", ":lua require('mini.bufremove').delete(0, false)<CR>", silent)
+keymap("n", "ff", "<cmd>:b#<CR>", silent)
 
 -- Don't yank on delete char
 keymap("n", "x", '"_x', silent)
@@ -111,7 +117,7 @@ keymap("v", "<leader>cf", function()
 end, silent)
 keymap("n", "<leader>cl", "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", silent)
 keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", silent)
-keymap("n", "L", "<cmd>lua vim.lsp.buf.signature_help()<CR>", silent)
+--keymap("n", "L", "<cmd>lua vim.lsp.buf.signature_help()<CR>", silent)
 
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", silent)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded', max_width = 100 }})<CR>", silent)
@@ -121,4 +127,15 @@ keymap("n", "K", function()
 		vim.lsp.buf.hover()
 	end
 end)
+
+-- Comment Box
+keymap("n", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
+keymap("v", "<leader>ac", "<cmd>lua require('comment-box').lbox()<CR>", silent)
+
+
+-- Work with github
+-- for current file page
+vim.api.nvim_set_keymap("n", "<Leader>gf", ":OpenInGHFile <CR>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("v", "<Leader>gf", ":OpenInGHFile <CR>", { silent = true, noremap = true })
+
 

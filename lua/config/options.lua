@@ -11,7 +11,8 @@ local options = {
   foldlevelstart = 99,                      --- Expand all folds by default
   ignorecase     = true,                    --- Needed for smartcase
   laststatus     = 3,                       --- Have a global statusline at the bottom instead of one for each window
-  mouse          = "a",                     --- Enable mouse
+  -- lazyredraw     = true,                    --- Makes macros faster & prevent errors in complicated mappings
+  mouse          = "",                     --- Enable mouse
   number         = true,                    --- Shows current line number
   pumheight      = 10,                      --- Max num of items in completion menu
   relativenumber = true,                    --- Enables relative number
@@ -46,6 +47,7 @@ local options = {
   fileencoding   = "utf-8",                 --- The encoding written to file
   incsearch      = true,                    --- Start searching before pressing enter
   showmode       = false,                   --- Don't show things like -- INSERT -- anymore
+  spelllang      = 'ru_ru,en_us',
 }
 
 local globals = {
@@ -64,6 +66,8 @@ vim.opt.fillchars:append('fold: ');
 vim.opt.fillchars:append('foldopen: ');
 vim.opt.fillchars:append('foldsep: ');
 vim.opt.fillchars:append('foldclose:');
+vim.opt.guifont = { "JetBrainsMono Nerd Font", ":h14" }
+vim.api.nvim_create_user_command("CopyRelPath", function() vim.api.nvim_call_function("setreg", {"+", vim.fn.fnamemodify(vim.fn.expand("%"), ":.")}) end, {})
 
 for k, v in pairs(options) do
   vim.opt[k] = v

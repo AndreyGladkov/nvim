@@ -8,19 +8,19 @@ M.settings = {
         url = "https://json.schemastore.org/package.json"
       },
       {
-        fileMatch = { "tsconfig*.json" },
+        fileMatch = { "tsconfig.json" },
         url = "https://json.schemastore.org/tsconfig.json"
       },
       {
-        fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+        fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json", ".prettierrc.js" },
         url = "https://json.schemastore.org/prettierrc.json"
       },
       {
-        fileMatch = { ".eslintrc", ".eslintrc.json" },
+        fileMatch = { ".eslintrc", ".eslintrc.json", ".eslintrc.js" },
         url = "https://json.schemastore.org/eslintrc.json"
       },
       {
-        fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
+        fileMatch = { ".babelrc", ".babelrc.json", ".babelrc.js", "babel.config.json" },
         url = "https://json.schemastore.org/babelrc.json"
       },
       {

@@ -6,6 +6,7 @@ local icons      = EcoVim.icons
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('repo')
 require("telescope").load_extension("git_worktree")
+require("telescope").load_extension("conventional_commits")
 
 local git_icons = {
   added = icons.gitAdd,
@@ -35,16 +36,16 @@ require('telescope').setup {
      -- horizontal = {
      --   preview_cutoff = 120,
      -- },
-      vertical = { width = 0.5 },
+      vertical = { width = 0.99 },
       prompt_position = "top",
     },
     file_sorter       = require('telescope.sorters').get_fzy_sorter,
-    prompt_prefix     = '  ',
+    prompt_prefix     = icons.search,
     color_devicons    = true,
     git_icons = git_icons,
 
     sorting_strategy = "ascending",
-    file_ignore_patterns = { ".yarn/*", ".git/*", ".github/*", "xhh/lux/*", ".pnp.js", ".yarn.lock", "webapp-static/js/CustomLibs/*"},
+    file_ignore_patterns = { ".yarn/*", ".git/*", ".github/*", "xhh/lux/*", ".pnp.js", ".yarn.lock", "webapp-static/js/CustomLibs/*", "webapp-static/build/*", "ssr/build/*"},
 
     file_previewer   = require('telescope.previewers').vim_buffer_cat.new,
     grep_previewer   = require('telescope.previewers').vim_buffer_vimgrep.new,
@@ -72,7 +73,7 @@ require('telescope').setup {
       override_generic_sorter = false,
       override_file_sorter = true,
       case_mode = "smart_case",
-    }
+    },
   }
 }
 
@@ -122,14 +123,11 @@ M.edit_neovim = function()
     require('telescope.themes').get_dropdown({
       color_devicons   = true,
       cwd              = "~/.config/nvim",
-      previewer        = false,
+      previewer        = true,
       prompt_title     = "Ecovim Dotfiles",
       sorting_strategy = "ascending",
       winblend         = 4,
       layout_config    = {
---        horizontal = {
---          mirror = false,
---        },
         vertical = {
           mirror = false,
         },
@@ -142,6 +140,11 @@ M.project_files = function(opts)
   opts = opts or {} -- define here if you want to define something
   local ok = pcall(require "telescope.builtin".git_files, opts)
   if not ok then require "telescope.builtin".find_files(opts) end
+end
+
+M.buffers = function(opts)
+  opts = opts or {}
+  require "telescope.builtin".buffers(opts)
 end
 
 M.command_history = function()

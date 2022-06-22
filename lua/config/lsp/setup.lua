@@ -1,7 +1,6 @@
 -- Setup installer & lsp configs
 local mason_ok, mason = pcall(require, "mason")
 local mason_lsp_ok, mason_lsp = pcall(require, "mason-lspconfig")
-local ufo_config_handler = require("plugins.nvim-ufo").handler
 
 if not mason_ok or not mason_lsp_ok then
   return
@@ -25,8 +24,8 @@ mason_lsp.setup({
     "jsonls",
     "lua_ls",
     "prismals",
-    "tailwindcss",
-    "tsserver"
+  --  "tailwindcss",
+    "vtsls"
   },
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -75,20 +74,71 @@ require("mason-lspconfig").setup_handlers {
     }
   end,
 
-  ["tsserver"] = function()
+  ["ts_ls"] = function()
     -- Skip since we use typescript-tools.nvim
   end,
 
-  ["tailwindcss"] = function()
-    lspconfig.tailwindcss.setup({
-      capabilities = require("config.lsp.servers.tailwindcss").capabilities,
-      filetypes = require("config.lsp.servers.tailwindcss").filetypes,
-      handlers = handlers,
-      init_options = require("config.lsp.servers.tailwindcss").init_options,
-      on_attach = require("config.lsp.servers.tailwindcss").on_attach,
-      settings = require("config.lsp.servers.tailwindcss").settings,
+  ["vtsls"] = function()
+    lspconfig.vtsls.setup({
+      settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            -- type hint in xhh not working
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+            typescript = {
+              -- globalTsdk = '/Users/a.gladkov/Project/xhh/.yarn/sdks/typescript/lib'
+            },
+          },
+          typescript = {
+            tsserver = {
+              --pluginPaths = { '/Users/a.gladkov/Project/xhh/' },
+              --enableTracing = true,
+              --maxTsServerMemory = 8072,
+              --log = 'verbose',
+              --experimental = {
+              --  enableProjectDiagnostics = true,
+              --},
+              workspaceSymbols = {
+                scope = 'currentProject',
+              },
+              watchOptions = {
+                watchFile = 'fixedPollingInterval',
+                watchDirectory = 'fixedPollingInterval',
+              },
+            },
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
+      }
     })
   end,
+
+  -- ["tailwindcss"] = function()
+  --   lspconfig.tailwindcss.setup({
+  --     capabilities = require("config.lsp.servers.tailwindcss").capabilities,
+  --     filetypes = require("config.lsp.servers.tailwindcss").filetypes,
+  --     handlers = handlers,
+  --     init_options = require("config.lsp.servers.tailwindcss").init_options,
+  --     on_attach = require("config.lsp.servers.tailwindcss").on_attach,
+  --     settings = require("config.lsp.servers.tailwindcss").settings,
+  --   })
+  -- end,
 
   ["cssls"] = function()
     lspconfig.cssls.setup({
@@ -126,18 +176,13 @@ require("mason-lspconfig").setup_handlers {
     })
   end,
 
-  ["vuels"] = function ()
-    lspconfig.vuels.setup({
-      filetypes = require("config.lsp.servers.vuels").filetypes,
-      handlers = handlers,
-      init_options = require("config.lsp.servers.vuels").init_options,
-      on_attach = require("config.lsp.servers.vuels").on_attach,
-      settings = require("config.lsp.servers.vuels").settings,
-    })
-  end
+  -- ["vuels"] = function ()
+  --   lspconfig.vuels.setup({
+  --     filetypes = require("config.lsp.servers.vuels").filetypes,
+  --     handlers = handlers,
+  --     init_options = require("config.lsp.servers.vuels").init_options,
+  --     on_attach = require("config.lsp.servers.vuels").on_attach,
+  --     settings = require("config.lsp.servers.vuels").settings,
+  --   })
+  -- end
 }
-
-require("ufo").setup({
-  fold_virt_text_handler = ufo_config_handler,
-  close_fold_kinds = { "imports" },
-})

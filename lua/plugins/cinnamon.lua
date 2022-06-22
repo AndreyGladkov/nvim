@@ -4,6 +4,7 @@ require('cinnamon').setup {
   extended_keymaps = false, -- Enable extended keymaps.
   centered = true,    -- Keep cursor centered in window when using window scrolling.
   disable = false,    -- Disable the plugin.
+  default_delay = 1,
   scroll_limit = 150, -- Max number of lines moved before scrolling is skipped.
 }
 

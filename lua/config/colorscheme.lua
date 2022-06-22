@@ -1,33 +1,35 @@
 local present, tokyonight = pcall(require, "tokyonight")
+
 if not present then
   return
 end
 
 local c = require("tokyonight.colors").setup()
 
+ vim.o.background = "dark"
 -- ╭──────────────────────────────────────────────────────────╮
 -- │ Setup Colorscheme                                        │
 -- ╰──────────────────────────────────────────────────────────╯
 tokyonight.setup({
-  style = "night",
-  transparent = false,    -- Enable this to disable setting the background color
+  --transparent = true,   -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+  style = "night",
   styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value `:help attr-list`
-    comments = "NONE",
-    keywords = "italic",
-    functions = "NONE",
-    variables = "NONE",
-    -- Background styles. Can be "dark", "transparent" or "normal"
+  --  -- Style to be applied to different syntax groups
+  --  -- Value is any valid attr-list value `:help attr-list`
+  --  comments = "NONE",
+  --  keywords = "italic",
+  --  functions = "NONE",
+  --  variables = "NONE",
+  --  -- Background styles. Can be "dark", "transparent" or "normal"
     sidebars = "dark",              -- style for sidebars, see below
     floats = "dark",                -- style for floating windows
   },
+  day_brightness = 0.3, 
   sidebars = { "qf", "help" },      -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
   hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
   dim_inactive = false,             -- dims inactive windows
-  lualine_bold = false,             -- When `true`, section headers in the lualine theme will be bold
+  lualine_bold = true,             -- When `true`, section headers in the lualine theme will be bold
   --- You can override specific color groups to use other groups or a hex color
   --- function will be called with a ColorScheme table
   on_colors = function(colors)
@@ -75,7 +77,7 @@ vim.api.nvim_set_hl(0, "EcovimHeader", { bold = true, fg = "#488DFF" })
 vim.api.nvim_set_hl(0, "EcovimHeaderInfo", { bold = true, fg = "#FFA630" })
 vim.api.nvim_set_hl(0, "EcovimFooter", { bold = true, fg = "#FFA630" })
 
-vim.api.nvim_set_hl(0, "EcovimNvimTreeTitle", { bold = true, fg = "#FFA630", bg = "#16161e" })
+vim.api.nvim_set_hl(0, "EcovimNvimTreeTitle", { bold = true })
 
 -- Tokyonight Colorscheme Specific Config
 if EcoVim.colorscheme == "tokyonight" then
@@ -83,7 +85,7 @@ if EcoVim.colorscheme == "tokyonight" then
   vim.api.nvim_set_hl(0, "CursorLineNR", { link = "EcovimSecondary" })
   vim.api.nvim_set_hl(0, "LineNr", { link = "Comment" })
 
-  -- Floats/Windows
+  -- -- Floats/Windows
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None", fg = "None" })
   vim.api.nvim_set_hl(0, "FloatBorder", { bg = "None", fg = "#488DFF" })
   vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "None", fg = "#488DFF" })
@@ -93,10 +95,10 @@ if EcoVim.colorscheme == "tokyonight" then
   vim.api.nvim_set_hl(0, "BufferInactiveIndex", { link = "BufferInactive" })
   vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
 
-  -- Tree
+  -- -- Tree
   vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", { bg = "None", fg = "None" })
 
-  -- Misc
+  -- -- Misc
   vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { link = "Comment" })
   vim.api.nvim_set_hl(0, "StatusLine", { bg = "None" })
   vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "None" })
@@ -107,14 +109,14 @@ if EcoVim.colorscheme == "tokyonight" then
   vim.api.nvim_set_hl(0, "BufferOffset", { link = "EcovimSecondary" })
   vim.api.nvim_set_hl(0, "LspInlayHint", { link = "LspCodeLens" })
 
-  -- Bufferline
+  -- -- Bufferline
   vim.api.nvim_set_hl(0, "BufferCurrentSign", { fg = c.cyan0 })
   vim.api.nvim_set_hl(0, "BufferInactiveSign", { bg = "#202331", fg = c.dark3 })
   vim.api.nvim_set_hl(0, "BufferInactiveMod", { bg = "NONE", fg = c.yellow })
 
   vim.api.nvim_set_hl(0, "BufferLineOffsetSeparator", { bg = "#16161e", fg = "#16161e" })
 
-  -- Completion Menu Colors
+  -- -- Completion Menu Colors
   local highlights = {
     CmpItemAbbr = { fg = c.dark3, bg = "NONE" },
     CmpItemKindClass = { fg = c.orange },
@@ -133,7 +135,7 @@ if EcoVim.colorscheme == "tokyonight" then
     CmpItemAbbrMatchFuzzy = { fg = "#569CD6", bg = "NONE" },
   }
 
-  vim.api.nvim_set_hl(0, "CmpBorderedWindow_FloatBorder", { fg = c.blue0 })
+   vim.api.nvim_set_hl(0, "CmpBorderedWindow_FloatBorder", { fg = c.blue0 })
 
   for group, hl in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, hl)

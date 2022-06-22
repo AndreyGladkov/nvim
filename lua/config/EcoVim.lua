@@ -25,14 +25,14 @@ EcoVim = {
         enabled = false,
       },
       copilot = {
-        enabled = true,
+        enabled = false,
       },
       tabnine = {
-        enabled = false,
+        enabled = true,
       },
     },
     completion = {
-      select_first_on_enter = false,
+      select_first_on_enter = true,
     },
     -- Completely replaces the UI for messages, cmdline and the popupmenu
     experimental_noice = {
@@ -45,7 +45,7 @@ EcoVim = {
     rooter = {
       -- Removing package.json from list in Monorepo Frontend Project can be helpful
       -- By that your live_grep will work related to whole project, not specific package
-      patterns = { ".git", "package.json", "_darcs", ".bzr", ".svn", "Makefile" }, -- Default
+      patterns = { ".git", "_darcs", ".bzr", ".svn", "Makefile" }, -- Default
     },
     -- <leader>z
     zen = {

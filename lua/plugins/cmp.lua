@@ -21,11 +21,13 @@ end
 
 cmp_git.setup()
 
-local copilot_comparators_status_ok, copilot_cmp_comparators = pcall(require, "copilot_cmp.comparators")
-if not copilot_comparators_status_ok then
-  P("Failed to load copilot_cmp.comparators")
-end
-
+-- local copilot_comparators_status_ok, copilot_cmp_comparators = pcall(require, "copilot_cmp.comparators")
+-- if not copilot_comparators_status_ok then
+--   P("Failed to load copilot_cmp.comparators")
+--   return
+-- end
+-- 
+--
 require("luasnip/loaders/from_vscode").lazy_load()
 
 -- ╭──────────────────────────────────────────────────────────╮
@@ -96,7 +98,7 @@ local function get_lsp_completion_context(completion, source)
   if not ok then
     return nil
   end
-  if source_name == "tsserver" or source_name == "typescript-tools" then
+  if source_name == "tsserver" or source_name == "typescript-tools" or source_name == "vtsls" then
     return completion.detail
   elseif source_name == "pyright" then
     if completion.labelDetails ~= nil then
@@ -291,7 +293,8 @@ cmp.setup({
     priority_weight = 2,
     comparators = {
       deprioritize_snippet,
-      copilot_cmp_comparators.prioritize or function() end,
+      --copilot_cmp_comparators.prioritize or function() end,
+      function() end,
       cmp.config.compare.exact,
       cmp.config.compare.locality,
       cmp.config.compare.score,
@@ -311,7 +314,7 @@ cmp.setup({
     }),
     documentation = cmp.config.window.bordered({
       winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-    }),
+   }),
   },
   experimental = {
     ghost_text = true,

@@ -140,8 +140,8 @@ require("nvim-tree").setup({
 		width = 40,
 		-- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
 		side = "left",
-		number = false,
-		relativenumber = false,
+		number = true,
+		relativenumber = true,
 	},
 })
 

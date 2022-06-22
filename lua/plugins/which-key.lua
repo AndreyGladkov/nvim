@@ -63,7 +63,7 @@ wk.setup {
 }
 
 local opts = {
-  mode = "n",     -- NORMAL mode
+  mode = { "n" },     -- NORMAL mode
   prefix = "<leader>",
   buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true,  -- use `silent` when creating keymaps
@@ -72,7 +72,7 @@ local opts = {
 }
 
 local visual_opts = {
-  mode = "v",     -- VISUAL mode
+  mode = { "v" },     -- VISUAL mode
   prefix = "<leader>",
   buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
   silent = true,  -- use `silent` when creating keymaps
@@ -93,14 +93,14 @@ local normal_mode_mappings = {
   ['9'] = 'which_key_ignore',
 
   -- single
-  ['='] = { '<cmd>vertical resize +5<CR>',                      'resize +5' },
-  ['-'] = { '<cmd>vertical resize -5<CR>',                      'resize +5' },
-  ['v'] = { '<C-W>v',                                           'split right' },
-  ['V'] = { '<C-W>s',                                           'split below' },
-  ['q'] = { 'quicklist' },
+  -- ['='] = { '<cmd>vertical resize +5<CR>',                      'resize +5' },
+  -- ['-'] = { '<cmd>vertical resize -5<CR>',                      'resize +5' },
+  -- ['v'] = { '<C-W>v',                                           'split right' },
+  -- ['V'] = { '<C-W>s',                                           'split below' },
+  -- ['q'] = { 'quicklist' },
 
   ['/'] = {
-    name = 'Ecovim',
+    name = 'A-Team',
     ['/'] = { '<cmd>Alpha<CR>',                                 'open dashboard' },
     c = { '<cmd>e $MYVIMRC<CR>',                                'open config' },
     i = { '<cmd>Lazy<CR>',                                      'manage plugins' },
@@ -128,7 +128,7 @@ local normal_mode_mappings = {
   c = {
     name = 'LSP',
     a = { 'code action' },
-    d = { '<cmd>TroubleToggle<CR>',                           'local diagnostics' },
+    d = { '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', 'local diagnostics' },
     D = { '<cmd>Telescope diagnostics wrap_results=true<CR>', 'workspace diagnostics' },
     f = { 'format' },
     l = { 'line diagnostics' },
@@ -187,13 +187,21 @@ local normal_mode_mappings = {
     }
   },
 
+  h = {
+    name = "Harpoon",
+    a = { 'add' },
+    h = { 'prev' },
+    j = { 'next' },
+    t = { 'toggle menu' },
+  },
+
   p = {
     name = 'Project',
     f = { 'file' },
     w = { 'word' },
     l = { "<cmd>lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh', '/Library/', '/%.cocoapods/'}}<CR>", 'list' },
     r = { 'refactor' },
-    t = { "<cmd>TodoTrouble<CR>", 'todo' },
+    t = { "<cmd>Trouble diagnostics toggle filter.buf=0<CR>", 'todo' },
   },
 
   r = {
@@ -255,6 +263,14 @@ local visual_mode_mappings = {
   },
 }
 
+-- Normal 
+
+wk.add({ "<leader>=", '<cmd>vertical resize +5<CR>', desc="resize +5", mode="n"})
+wk.add({ "<leader>-", '<cmd>vertical resize -5<CR>', desc="resize -5", mode="n"})
+wk.add({ "<leader>v", '<C-W>v', desc="split right", mode="n"})
+wk.add({ "<leader>V", '<C-W>s', desc="split below", mode="n"})
+wk.add({ "<leader>q", desc="quicklist", mode="n"})
+
 -- ╭──────────────────────────────────────────────────────────╮
 -- │ Register                                                 │
 -- ╰──────────────────────────────────────────────────────────╯
@@ -270,7 +286,7 @@ local function attach_markdown(bufnr)
     }
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -291,7 +307,7 @@ local function attach_typescript(bufnr)
     }
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -313,7 +329,7 @@ local function attach_npm(bufnr)
     }
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -326,7 +342,7 @@ local function attach_zen(bufnr)
     ["z"] = { '<cmd>ZenMode<CR>',               'zen' },
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -347,7 +363,7 @@ local function attach_jest(bufnr)
     }
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -363,7 +379,7 @@ local function attach_spectre(bufnr)
     ["v"] = { '[SPECTRE] Change view mode' },
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -377,7 +393,7 @@ local function attach_nvim_tree(bufnr)
     ["-"] = { "<cmd>NvimTreeResize -5<CR>", "resize +5" },
   }, {
     buffer = bufnr,
-    mode = "n",     -- NORMAL mode
+    mode = { "n" },     -- NORMAL mode
     prefix = "<leader>",
     silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
@@ -385,19 +401,21 @@ local function attach_nvim_tree(bufnr)
   })
 end
 
-wk.register({
-  c = {
-    c = {
-      name = "Copilot Chat",
-    }
-  }
-}, {
-  mode = "n",
-  prefix = "<leader>",
-  silent = true,
-  noremap = true,
-  nowait = false,
-})
+-- wk.register({
+--   c = {
+--     c = {
+--       name = "Copilot Chat",
+--     }
+--   }
+-- }, {
+--   mode = { "n" },
+--   prefix = "<leader>",
+--   silent = true,
+--   noremap = true,
+--   nowait = false,
+-- })
+
+wk.add({ "<leader>cc", desc="Copilot Chat", mode="n"})
 
 return {
   attach_markdown = attach_markdown,

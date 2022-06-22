@@ -7,18 +7,20 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
+      -- vim.cmd([[colorscheme tokyonight]])
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
       require("config.colorscheme")
     end,
   },
   { "nvim-lua/plenary.nvim" },
+  {"olacin/telescope-cc.nvim"},
   {
     "nvim-tree/nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup({ default = true })
     end,
   },
+  { 'almo7aya/openingh.nvim', lazy = false },
   {
     "goolord/alpha-nvim",
     lazy = false,
@@ -26,13 +28,17 @@ return {
       require("plugins.alpha")
     end,
   },
-    {'kenn7/vim-arsync'},
-    {'sbdchd/neoformat'},
-    {'prettier/vim-prettier'},
-
-  -- ╭─────────────────────────────────────────────────────────╮
-  -- │ Treesitter                                              │
-  -- ╰─────────────────────────────────────────────────────────╯
+  {'kenn7/vim-arsync',
+            lazy = false,
+            dependencies = {"prabirshrestha/async.vim",}
+    },
+    { 'AndreyGladkov/nvim-toggle-prettier', lazy = false },
+    {'prettier/vim-prettier', lazy = false},
+    {'mattn/emmet-vim', lazy = false},
+	{'sbdchd/neoformat',
+        lazy = false,
+    },
+  -- Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     event = "BufReadPre",
@@ -196,7 +202,7 @@ return {
   { "onsails/lspkind-nvim" },
   {
     "folke/trouble.nvim",
-    cmd = { "TroubleToggle", "Trouble" },
+    cmd = { "Trouble diagnostics toggle", "Trouble" },
     config = function()
       require("plugins.trouble")
     end,
@@ -409,6 +415,7 @@ return {
       { "r", mode = "o",               function() require("flash").remote() end, desc = "Remote Flash" },
     },
   },
+  { 'echasnovski/mini.nvim', version = false },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -541,6 +548,9 @@ return {
   {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
+    opts = {
+        filetype_exclude = { 'help', 'alpha', 'dashboard', 'neo-tree', 'Trouble', 'lazy', 'mason' },
+    },
     config = function()
       vim.keymap.set("n", "zR", require("ufo").openAllFolds)
       vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
@@ -582,7 +592,7 @@ return {
     event = "BufReadPre",
     main = "ibl",
     config = function()
-      require("plugins.indent")
+      --require("plugins.indent")
     end,
   },
   {
@@ -1003,4 +1013,22 @@ return {
       require('plugins.linting')
     end,
   },
+  {
+      'linux-cultist/venv-selector.nvim',
+      dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+      opts = {
+        -- Your options go here
+        name = {"venv", ".venv"},
+        auto_refresh = false
+      },
+      lazy = false,
+      branch = "regexp",
+      event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+      keys = {
+        -- Keymap to open VenvSelector to pick a venv.
+        { '<leader>vs', '<cmd>VenvSelect<cr>' },
+        -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+        { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
+      },
+  }
 }
